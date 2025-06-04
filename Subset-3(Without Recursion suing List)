@@ -1,0 +1,19 @@
+import java.util.*;
+public class SubsetExample {
+    public static void main(String[] args) {
+        List<String> result = generateSubsets("abc");
+        System.out.println(result);
+    }
+    static List<String> generateSubsets(String input) {
+        List<String> subsets = new ArrayList<>();
+        subsets.add(""); 
+        for (char ch : input.toCharArray()) {
+            int size = subsets.size();  
+            for (int i = 0; i < size; i++) {
+                String newSubset = subsets.get(i) + ch;
+                subsets.add(newSubset);
+            }
+        }
+        return subsets;
+    }
+}
