@@ -1,0 +1,21 @@
+import java.util.HashSet;
+import java.util.Set;
+public class Solution {
+    public static boolean findSubarrays(int[] nums) {
+        Set<Integer> sums = new HashSet<>();
+        for (int i = 0; i < nums.length - 1; i++) {
+            int sum = nums[i] + nums[i + 1];
+            if (sums.contains(sum)) {
+                return true; // found duplicate sum
+            }
+            sums.add(sum);
+        }
+        return false;
+    }
+    public static void main(String[] args) {
+        int[] nums1 = {4, 2, 4};
+        System.out.println(findSubarrays(nums1)); // Output: true
+        int[] nums2 = {1, 2, 3, 4};
+        System.out.println(findSubarrays(nums2)); // Output: false
+    }
+}
