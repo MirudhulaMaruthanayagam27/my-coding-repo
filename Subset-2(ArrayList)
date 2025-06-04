@@ -1,0 +1,22 @@
+//In Arrayslist
+import java.util.*;
+public class SubsetExample {
+    public static void main(String[] args) {
+        List<String> ans = subset("", "abc");
+        System.out.println(ans);
+    }
+    static List<String> subset(String p, String up) {
+        if (up.isEmpty()) {
+            List<String> ls = new ArrayList<>();
+            ls.add(p);
+            return ls;  }
+        char ch = up.charAt(0);
+        // exclude ch
+        List<String> left = subset(p, up.substring(1));
+        // include ch
+        List<String> right = subset(p + ch, up.substring(1));
+        // Combine left and right lists
+        left.addAll(right);
+        return left;
+    }
+}
