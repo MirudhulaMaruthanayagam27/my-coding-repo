@@ -1,0 +1,44 @@
+import java.util.HashMap;
+public class CommonAndDifferenceChars {
+    // Return common characters in order of s1
+    public static String getCommonChars(String s1, String s2) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char ch : s2.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        StringBuilder common = new StringBuilder();
+        for (char ch : s1.toCharArray()) {
+            if (map.getOrDefault(ch, 0) > 0) {
+                common.append(ch);
+                map.put(ch, map.get(ch) - 1);
+            }
+        }
+        return common.toString();
+    }
+    // Return characters in s1 or s2 but NOT in both (symmetric difference)
+    public static String getSymmetricDifference(String s1, String s2) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        // Count chars in s1 (+1)
+        for (char ch : s1.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        // Count chars in s2 (-1)
+        for (char ch : s2.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0) - 1);
+        }
+        StringBuilder diff = new StringBuilder();
+        // Collect chars with count != 0 (means they appear in only one string)
+        for (char ch : map.keySet()) {
+            int count = map.get(ch);
+            if (count != 0) {
+                diff.append(ch);
+            }
+        }
+        return diff.toString();
+    }
+    public static void main(String[] args) {
+        String s1 = "abcdefw";
+        String s2 = "abcdefgh";
+        System.out.println("Common chars: " + getCommonChars(s1, s2)); // abcdef
+        System.out.println("Symmetric difference chars: " + getSymmetricDifference(s1, s2)); // wgh (order may vary)
+    }
